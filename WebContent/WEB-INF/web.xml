@@ -29,4 +29,18 @@
     <servlet-name>PersistenceWithJDBCServlet</servlet-name>
     <url-pattern>/PersistenceWithJDBCServlet</url-pattern>
   </servlet-mapping>
+  <resource-ref>
+    <res-ref-name>jdbc/DefaultDB</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+  </resource-ref>
+  <servlet>
+    <description></description>
+    <display-name>PersistenceWithJPAServlet</display-name>
+    <servlet-name>PersistenceWithJPAServlet</servlet-name>
+    <servlet-class>com.sap.innojam.biohunter.persistence.PersistenceWithJPAServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PersistenceWithJPAServlet</servlet-name>
+    <url-pattern>/PersistenceWithJPAServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
