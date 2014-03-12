@@ -1,0 +1,27 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}This is an example page{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  <!-- ... -->
+</div>
+{% endblock %}
+
+{% block content %}
+  <p><a href="/facebook">Facebook</a> | <a href="/gdrive">GDrive</a> | 
+  	 <a href="/tumblr">Tumblr</a> | <a href="/twitter">Twitter</a>
+  </p>
+  <h1>Hello, Bootstrap</h1>
+  
+  <p>{{ text }}</p>
+  
+  <ul class=entries>
+	{% for entry in objects %}
+    	<li>{{ entry.get_html() }} </li>
+  	{% else %}
+    	<li><em>Unbelievable.  No entries here so far</em></li>
+  	{% endfor %}
+  </ul>
+  
+  
+{% endblock %}

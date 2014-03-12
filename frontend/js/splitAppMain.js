@@ -133,7 +133,8 @@ var oDetailPage5 = new sap.m.Page("SampleSubmission", {
           type: sap.m.InputType.Url,
           placeholder: 'Enter URL ...'
         }),
-   new sap.m.Button({text: "Submit"})
+   new sap.m.Button({text: "Submit", 
+	   press: function(e) { initApp(); }})
 	     ]
 });
 
