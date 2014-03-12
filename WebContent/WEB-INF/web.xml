@@ -43,4 +43,24 @@
     <servlet-name>PersistenceWithJPAServlet</servlet-name>
     <url-pattern>/PersistenceWithJPAServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>HelloWorld</display-name>
+    <servlet-name>HelloWorld</servlet-name>
+    <servlet-class>com.sap.innojam.biohunter.persistence.HelloWorld</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HelloWorld</servlet-name>
+    <url-pattern>/HelloWorld</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DocumentStore</display-name>
+    <servlet-name>DocumentStore</servlet-name>
+    <servlet-class>com.sap.innojam.biohunter.persistence.DocumentStore</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DocumentStore</servlet-name>
+    <url-pattern>/DocumentStore</url-pattern>
+  </servlet-mapping>
 </web-app>
