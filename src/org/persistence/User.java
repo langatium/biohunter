@@ -14,10 +14,15 @@ public class User implements Serializable {
 	}
 
 	@Id
+	@GeneratedValue
 	private long id;
+	@Basic
 	private String userName;
+	@Basic
 	private Double totalScore;
+	@Basic
 	private String description;
+	@Basic
 	private String dateJoined;
 	
 	public long getId() {

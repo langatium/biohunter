@@ -31,54 +31,28 @@ import com.sap.security.core.server.csi.XSSEncoder;
  * Servlet implementing a simple JPA based persistence sample application for SAP HANA Cloud Platform.
  */
 public class BarcodeDataServlet extends PersistentStorageView {
-//public class PersistenceWithJPAServlet extends HttpServlet {
-//    private static final long serialVersionUID = 1L;
-//    private static final Logger LOGGER = LoggerFactory.getLogger(PersistenceWithJPAServlet.class);
-//
-//    private DataSource ds;
-//    private EntityManagerFactory emf;
-//
-//    /** {@inheritDoc} */
-//    @SuppressWarnings({ "rawtypes", "unchecked" })
-//    @Override
-//    public void init() throws ServletException {
-//        Connection connection = null;
-//        try {
-//            InitialContext ctx = new InitialContext();
-//            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/DefaultDB");
-//
-//            Map properties = new HashMap();
-//            properties.put(PersistenceUnitProperties.NON_JTA_DATASOURCE, ds);
-//            emf = Persistence.createEntityManagerFactory("biohunter", properties);
-//        } catch (NamingException e) {
-//            throw new ServletException(e);
-//        }
-//    }
-//
-//    /** {@inheritDoc} */
-//    @Override
-//    public void destroy() {
-//        emf.close();
-//    }
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	/** {@inheritDoc} */
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = emf.createEntityManager();
         try {
-            @SuppressWarnings("unchecked")
-            List<BarcodeData2> resultList = em.createNamedQuery("AllData").getResultList();
+            Integer userId = Integer.getInteger(request.getParameter("userId"));
             
-            response.setContentType("application/json");
-            PrintWriter out = response.getWriter();
-            Gson gson = new Gson();
-            out.print(gson.toJson(resultList));
-            out.flush();
+            if (userId == null) {
+				List<BarcodeData2> resultList = em.createNamedQuery("AllData").getResultList();
+                writeJsonOutput(response, resultList);
+            } else {
+            	List<BarcodeData2> resultList = em.createQuery("select * from BarcodeData2 where userId = ?1").setParameter(1, userId)
+            		    .getResultList();
+            	writeJsonOutput(response, resultList);
+            }
         } catch (Exception e) {
             response.getWriter().println("Persistence operation failed with reason: " + e.getMessage());
             LOGGER.error("Persistence operation failed", e);

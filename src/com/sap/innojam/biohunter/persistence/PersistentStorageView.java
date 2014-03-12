@@ -1,5 +1,7 @@
 package com.sap.innojam.biohunter.persistence;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,11 +12,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.eclipse.persistence.config.PersistenceUnitProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.gson.Gson;
 
 public abstract class PersistentStorageView extends HttpServlet {
 
@@ -47,5 +52,19 @@ public abstract class PersistentStorageView extends HttpServlet {
         emf.close();
     }
     
+	protected void writeJsonOutput(HttpServletResponse response, Object obj) {
+		response.setContentType("application/json");
+        PrintWriter out;
+		try {
+			out = response.getWriter();
+			Gson gson = new Gson();
+	        out.print(gson.toJson(obj));
+	        out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+	}
     
 }

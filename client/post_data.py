@@ -6,7 +6,7 @@ Created on 12.03.2014
 import requests
 import json
 
-url = 'https://biohunterp1940459638trial.hanatrial.ondemand.com/biohunter/PersistenceWithJPAServlet'
+# url = 'https://biohunterp1940459638trial.hanatrial.ondemand.com/biohunter/BarcodeDataServlet'
 
 data = {'longitude': '45,23',
         'latitude': '12,32',
@@ -15,8 +15,25 @@ data = {'longitude': '45,23',
         'description': 'hello world',
         'score': '23.4',
         'imageUrl': 'http://irgendwas',
-        'qrCode': 'nix'}
+        'qrCode': 'EMBL_SAMPLE_03'}
+
+url = 'https://biohunterp1940459638trial.hanatrial.ondemand.com/biohunter/UserServlet'
+
+# users = [{'userName': 'Ben', 'description': 'hello world'},
+#          {'userName': 'Bernd', 'description': 'hello world'},
+#          {'userName': 'Chad', 'description': 'hello world'},
+#          {'userName': 'David', 'description': 'hello world'},
+#          {'userName': 'Ehsan', 'description': 'hello world'},
+#          {'userName': 'Heinz', 'description': 'hello world'},
+#          {'userName': 'Monika', 'description': 'hello world'},
+#          {'userName': 'Patrick', 'description': 'hello world'},
+#          {'userName': 'Romil', 'description': 'hello world'},]
 
 headers = {'Content-type': 'application/x-www-form-urlencoded', 'Accept': 'text/plain'}
-r = requests.post(url, data=data, headers=headers)
+# 
+# for user in users: 
+#     r = requests.post(url, data=user, headers=headers)
+#     print r.text
+    
+r = requests.get(url, params={'userId': '9'})
 print r.text

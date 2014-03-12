@@ -11,15 +11,15 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>BarcodeData</display-name>
-    <servlet-name>BarcodeData</servlet-name>
-    <servlet-class>com.sap.innojam.biohunter.persistence.BarcodeData</servlet-class>
+    <display-name>BarcodeDataServlet</display-name>
+    <servlet-name>BarcodeDataServlet</servlet-name>
+    <servlet-class>com.sap.innojam.biohunter.persistence.BarcodeDataServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>BarcodeData</servlet-name>
-    <url-pattern>/BarcodeData</url-pattern>
+    <servlet-name>BarcodeDataServlet</servlet-name>
+    <url-pattern>/BarcodeDataServlet</url-pattern>
   </servlet-mapping>
-  <servlet>
+<!--   <servlet>
     <description></description>
     <display-name>PersistenceWithJDBCServlet</display-name>
     <servlet-name>PersistenceWithJDBCServlet</servlet-name>
@@ -28,30 +28,26 @@
   <servlet-mapping>
     <servlet-name>PersistenceWithJDBCServlet</servlet-name>
     <url-pattern>/PersistenceWithJDBCServlet</url-pattern>
-  </servlet-mapping>
-  <resource-ref>
-    <res-ref-name>jdbc/DefaultDB</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-  </resource-ref>
-  <servlet>
+  </servlet-mapping> -->
+<!--   <servlet>
     <description></description>
-    <display-name>PersistenceWithJPAServlet</display-name>
-    <servlet-name>PersistenceWithJPAServlet</servlet-name>
-    <servlet-class>com.sap.innojam.biohunter.persistence.PersistenceWithJPAServlet</servlet-class>
+    <display-name>BarcodeDataServlet</display-name>
+    <servlet-name>BarcodeDataServlet</servlet-name>
+    <servlet-class>com.sap.innojam.biohunter.persistence.BarcodeDataServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>PersistenceWithJPAServlet</servlet-name>
     <url-pattern>/PersistenceWithJPAServlet</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   <servlet>
     <description></description>
-    <display-name>HelloWorld</display-name>
-    <servlet-name>HelloWorld</servlet-name>
-    <servlet-class>com.sap.innojam.biohunter.persistence.HelloWorld</servlet-class>
+    <display-name>UserServlet</display-name>
+    <servlet-name>UserServlet</servlet-name>
+    <servlet-class>com.sap.innojam.biohunter.persistence.UserServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>HelloWorld</servlet-name>
-    <url-pattern>/HelloWorld</url-pattern>
+    <servlet-name>UserServlet</servlet-name>
+    <url-pattern>/UserServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -63,4 +59,8 @@
     <servlet-name>DocumentStore</servlet-name>
     <url-pattern>/DocumentStore</url-pattern>
   </servlet-mapping>
+  <resource-ref>
+    <res-ref-name>jdbc/DefaultDB</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+  </resource-ref>
 </web-app>
