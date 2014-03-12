@@ -1,0 +1,13 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+ * (c) Copyright 2009-2013 SAP AG or an SAP affiliate company. 
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+jQuery.sap.declare("sap.m.ListBaseRenderer");jQuery.sap.require("sap.ui.core.theming.Parameters");sap.m.ListBaseRenderer={};
+sap.m.ListBaseRenderer.render=function(r,c){if(!c.getVisible()){return}r.write("<div");r.addClass("sapMList");r.writeControlData(c);r.writeAttribute("tabindex","-1");if(c.getInset()){r.addClass("sapMListInsetBG")}if(c.getWidth()){r.addStyle("width",c.getWidth())}if(c.setBackgroundDesign){r.addClass("sapMListBG"+c.getBackgroundDesign())}this.renderContainerAttributes(r,c);r.writeStyles();r.writeClasses();r.write(">");var h=c.getHeaderText();var H=c.getHeaderToolbar();if(h||H){r.write("<div");r.writeAttribute("id",c.getId("header"));r.addClass(H?"sapMTB-Transparent-CTX":"sapMListHdr");r.writeClasses();r.write(">");if(H){r.renderControl(H);c.addNavSection(H.getId())}else{r.writeEscaped(h)}r.write("</div>")}var I=c.getInfoToolbar();if(I){r.write("<div");r.writeAttribute("id",c.getId("infobar"));r.addClass("sapMTB-Info-CTX");r.writeClasses();r.write(">");r.renderControl(I);c.addNavSection(I.getId());r.write("</div>")}this.renderListStartAttributes(r,c);r.addClass("sapMListUl");r.writeAttribute("tabindex","-1");r.writeAttribute("id",c.getId("listUl"));r.addClass("sapMListShowSeparators"+c.getShowSeparators());r.addClass("sapMListMode"+c.getMode());if(c.getInset()){r.addClass("sapMListInset")}r.writeClasses();r.write(">");this.renderListHeadAttributes(r,c);var a=c.getItems();var R=this.shouldRenderItems(c);if(R){for(var i=0;i<a.length;i++){c._applySettingsToItem(a[i],true);r.renderControl(a[i])}}if((!R||!a.length)&&c.getShowNoData()){this.renderNoData(r,c)}this.renderListEndAttributes(r,c);if(c.getGrowing()&&c._oGrowingDelegate){c._oGrowingDelegate.render(r)}if(c.getFooterText()){r.write("<footer");r.writeAttribute("id",c.getId("listFooter"));r.addClass("sapMListFtr");r.writeClasses();r.write(">");r.writeEscaped(c.getFooterText());r.write("</footer>")}r.write("<div tabindex='-1' id='"+c.getId("after")+"'></div>");r.write("</div>")};
+sap.m.ListBaseRenderer.renderContainerAttributes=function(r,c){};
+sap.m.ListBaseRenderer.renderListHeadAttributes=function(r,c){};
+sap.m.ListBaseRenderer.renderListStartAttributes=function(r,c){r.write("<ul")};
+sap.m.ListBaseRenderer.renderListEndAttributes=function(r,c){r.write("</ul>")};
+sap.m.ListBaseRenderer.renderNoData=function(r,c){r.write("<li id='"+c.getId("nodata")+"' class='sapMLIB sapMListNoData'>");r.write("<span id='"+c.getId("nodata-text")+"'>");r.writeEscaped(c.getNoDataText());r.write("</span></li>")};
+sap.m.ListBaseRenderer.shouldRenderItems=function(c){return true};

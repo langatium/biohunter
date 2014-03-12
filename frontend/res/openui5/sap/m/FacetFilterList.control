@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>FacetFilterList</name>
+
+	<documentation>FacetFilterList represents a list of values for the FacetFilter control.</documentation>
+
+	<since>1.16.0</since>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+	<!--  
+		<property group="Behavior" name="active" type="boolean"
+			defaultValue="true">
+			<documentation>Indicated that the facet is active.</documentation>
+		</property>
+		 -->
+		<property group="Appearance" name="title" type="sap.ui.core/string">
+			<documentation>The title of the facet.</documentation>
+		</property>
+		<property group="Misc" name="allCount" type="sap.ui.core/int">
+			<documentation>Number of objects that match this item in the target data set when all filter items are selected.</documentation>
+		</property>
+		<property group="Behavior" name="active" type="boolean" defaultValue="true">
+			<documentation>Indicates that the list is displayed as a button in  the Light flow</documentation>
+		</property>
+		<property group="Identification" name="key" type="sap.ui.core/string">
+			<documentation>Unique identifier for this filter list.</documentation>
+		</property>
+		<property group="Behavior" name="multiSelect" type="boolean" defaultValue="true">
+			<documentation>Specifies whether multiple or single selection is used.</documentation>
+		</property>
+		<property group="Behavior" name="sequence" type="sap.ui.core/int" defaultValue="-1">
+			<documentation>Sequence that determines the order in which facet list is shown on the facet filter. Lists are rendered by ascending order of sequence.</documentation>
+		</property>
+		<property group="Behavior" name="growing" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Sets the growing(paging) feature of control.</documentation>
+		</property>
+		<property group="Misc" name="growingThreshold" type="sap.ui.core/int" defaultValue="20">
+			<documentation>Number of items requested from the server. This property can be used only if &quot;growing&quot; property is set &quot;true&quot;.</documentation>
+		</property>
+		<property group="Misc" name="growingTriggerText" type="sap.ui.core/string">
+			<documentation>This text is displayed on the trigger button which is responsible to load new page at the end of the list. The default is a translated text (&quot;Load More Data&quot;) coming from the message bundle.
+This property can be used only if &quot;growing&quot; property is set &quot;true&quot;.</documentation>
+		</property>		
+	</properties>
+	<events>
+		<event name="listOpen">
+			<documentation>Fired before the filter list is opened.</documentation>
+		</event>	
+		<event name="listClose">
+			<documentation>Triggered after the list of items is closed.</documentation>
+			<parameters>
+				<parameter name="selectedItems" type="sap.m/FacetFilterItem[]">
+					<documentation>Array of selected Items.</documentation>
+				</parameter>
+				<parameter name="allSelected" type="sap.ui.core/boolean">
+					<documentation>True if all filter items are selected.</documentation>
+				</parameter>
+			</parameters>			
+		</event>
+	</events>
+	<aggregations>
+		<aggregation cardinality="0..n" name="items" type="sap.m/FacetFilterItem">
+			<documentation>A list of items for the facet.</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="getSelectedItems" type="sap.m/FacetFilterItem[]">
+			<documentation>Returns an array that contains all the FacetFilterItems that are selected.</documentation>
+		</method>
+	</methods>
+</control>

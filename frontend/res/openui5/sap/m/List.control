@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+	<name>List</name>
+	<author>SAP AG</author>
+	<documentation>List control provides a container for all type of list items.</documentation>
+	<baseType>ListBase</baseType>
+	<properties>
+		<property group="Appearance" name="backgroundDesign" type="BackgroundDesign" defaultValue="Solid" since="1.14">
+			<documentation>This property is used to set the background color of the list. Depending on the theme you can change the state of the background from &quot;Solid&quot; over &quot;Translucent&quot; to &quot;Transparent&quot;.</documentation>
+		</property>
+	</properties>
+	<aggregations>
+		<aggregation cardinality="0..n" name="columns" type="Column">
+			<documentation>Columns</documentation>
+			<deprecation since="1.16">Use Table control instead.</deprecation>
+		</aggregation>
+	</aggregations>
+</control>

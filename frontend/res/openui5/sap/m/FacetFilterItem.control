@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>FacetFilterItem</name>
+	<documentation>Represents a value for the FacetFilterList control.</documentation>
+	<since>1.16.0</since>
+
+	<baseType>sap.ui.core/Item</baseType>
+	<properties>
+		<property group="Behavior" name="selected" type="boolean" defaultValue="false">
+			<documentation>Indicated that this value is selected in the FacetFilterList.</documentation>
+		</property>
+		<property group="Misc" name="count" type="sap.ui.core/int">
+			<documentation>Number of objects that match this item in the target data set.</documentation>
+		</property>
+	</properties>
+</control>
