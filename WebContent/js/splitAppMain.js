@@ -1,73 +1,69 @@
 
 var splitApp;
+
 function initApp(){
     splitApp = new sap.m.SplitApp("BioXYZ", {});
-    
+    var oDetailPage0 = new sap.m.Page("Splash", {
+    	title: "Index",
+    	content : [ new sap.m.Label({text: "Welcome to BioHunter"})
+    	        ,new sap.m.Image({
+    	        	src: "logo.png",
+    	            width: "50em",
+    	            height: "50em"
+    	        }) 
+    	 ]
+    }); 
     var oDetailPage1 = new sap.m.Page("IndexMap", {
-   title : "Index Map",
-   content : [ new sap.ui.core.HTML("mapArea", {
-                content: "<div id='map_area'></div>",
-                preferDOM : false,                      
-                afterRendering : function(e) {
-                    var iconBase = "https://maps.google.com/mapfiles/kml/shapes/";
-                	var center = new google.maps.LatLng(52.375892, 9.73201);
-
-                    var map_canvas = document.getElementById('map_area');
-                    var map_options = {
-                        center: new google.maps.LatLng(52.375892, 9.73201),
-                        zoom: 12,
-                        mapTypeId: google.maps.MapTypeId.TERRAIN
-                    };
-                    
-                    var canvas_height = 700;
-                    map_canvas.style.height=canvas_height+"px";
-                    
-                    window.map = new google.maps.Map(map_canvas, map_options);
+	   title : "Index Map",
+	   content : [new sap.ui.core.HTML("mapArea", {
+	              content: "<div id='map_area'></div>",
+	              preferDOM : false,                      
+	              afterRendering : function(e) {
+	                    var iconBase = "https://maps.google.com/mapfiles/kml/shapes/";
+	                	var center = new google.maps.LatLng(52.375892, 9.73201);
+	
+	                    var map_canvas = document.getElementById('map_area');
+	                    var map_options = {
+	                        center: new google.maps.LatLng(52.375892, 9.73201),
+	                        zoom: 12,
+	                        mapTypeId: google.maps.MapTypeId.TERRAIN
+	                    };
+	                    
+	                    var canvas_height = 700;
+	                    map_canvas.style.height=canvas_height+"px";
+	                    
+	                    window.map = new google.maps.Map(map_canvas, map_options);
 
 					
 
-if(navigator.geolocation) {
+						if(navigator.geolocation) {
+						
+						  navigator.geolocation.getCurrentPosition(function(position) {
+						    var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+						
+						    var marker = new google.maps.Marker({
+						       position: pos,
+						       map: window.map
+						    });
+						    window.map.setCenter(pos);
+						}, function() {
+						  handleNoGeolocation(true);
+						  });
+						} else {
+						  // Browser doesn't support Geolocation
+						  handleNoGeolocation(false);
+						}
 
-  navigator.geolocation.getCurrentPosition(function(position) {
-    var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-    var marker = new google.maps.Marker({
-       position: pos,
-       map: window.map
-    });
-    window.map.setCenter(pos);
-}, function() {
-  handleNoGeolocation(true);
-  });
-} else {
-  // Browser doesn't support Geolocation
-  handleNoGeolocation(false);
-}
-
-
-					// var infoWindow = new google.maps.InfoWindow({
-					// 	content: "You are here"
-					// });
-
-					// infoWindow.open(window.map, marker);
-
-					var marker2 = new google.maps.Marker({
-                    	position: new google.maps.LatLng(52.345892, 9.73201),
-                    	map: window.map,
-                    	icon: iconBase + "parks.png"
-                    });
-
-					var marker3 = new google.maps.Marker({
-                    	position: new google.maps.LatLng(52.408892, 9.753201),
-                    	map: window.map,
-                    	icon: iconBase + "parks.png"
-                    });
-
-                     new google.maps.Marker({
-                    	position: new google.maps.LatLng(52.38892, 9.700201),
-                    	map: window.map,
-                    	icon: iconBase + "parks.png"
-                    });
+						$.getJSON('https://biohunterp1940459638trial.hanatrial.ondemand.com/biohunter/BarcodeDataServlet', function(entries) {
+						    //data is the JSON string
+						    for (var i=0; i< entries.length; i++) {
+						            new google.maps.Marker({
+						            position: new google.maps.LatLng(entries[i].longitude, entries[i].latitude),
+						            map: window.map,
+						            icon: iconBase + "parks.png"});
+						    }
+						});
 
                     window.pointArray = new google.maps.MVCArray();
                     var heatmap = new google.maps.visualization.HeatmapLayer({
@@ -181,8 +177,9 @@ var oDetailPage4 = new sap.m.Page("Images", {
 	     ]
 });
 
+
 var oDetailPage5 = new sap.m.Page("SampleSubmission", {
-   title : "Sample Submission",
+   title : "New Submission",
    content : [ new sap.m.Label({
 		 text : "SAMPLE SUBMISSION - THANK YOU"
                }),
@@ -206,8 +203,13 @@ var oDetailPage5 = new sap.m.Page("SampleSubmission", {
           type: sap.m.InputType.Url,
           placeholder: 'Enter URL ...'
         }),
-   new sap.m.Button({text: "Submit"})
-	     ]
+   new sap.m.Button({
+	   text: "Submit",
+	   press: function(){
+		   sap.m.MessageToast.show("New Entry Created");   
+	   }
+	   })
+	  ]
 });
 
 var oDetailPage6 = new sap.m.Page("PendingSamples", {
@@ -315,7 +317,7 @@ var oDetailPage7 = new sap.m.Page("Ranking", {
 
 function openCamera(){
 
-var pictureArea = new sap.ui.core.HTML("pictureArea", {
+var pictureArea = new sap.ui.core.HTML({
         content: "<div id='picture_area'></div>",
         preferDOM : false,                      
         afterRendering : function(e) {
@@ -323,7 +325,7 @@ var pictureArea = new sap.ui.core.HTML("pictureArea", {
 });
 
 var stdDialog = new sap.m.Dialog({
-      title: "Image",
+      title: "Add New Image",
       content: pictureArea,
       leftButton: new sap.m.Button({
         text: "Ok",
@@ -358,8 +360,8 @@ function displayAsImage(file){
 		URL.revokeObjectURL(imgURL);
 	};
 	img.src = imgURL;
-	img.height = 100;
-	img.width = 100;
+	img.height = 300;
+	img.width = 300;
 	document.getElementById('picture_area').appendChild(img);
 }
 
@@ -372,22 +374,22 @@ function displayAsImage(file){
 		mode:"SingleSelectMaster",
 		select: function(oEv) {
 			      if(oEv.getParameter("listItem").getId() == "IndexMapChoice") {
-			      splitApp.toDetail("IndexMap");
-			}else if(oEv.getParameter("listItem").getId() == "ProfileChoice"){
-			      splitApp.toDetail("Profile");
-			}else if(oEv.getParameter("listItem").getId() == "MapChoice"){
-			      splitApp.toDetail("IndexMap");
-			}else if(oEv.getParameter("listItem").getId() == "ImagesChoice"){
-			      splitApp.toDetail("Images");
-			}else if(oEv.getParameter("listItem").getId() == "SampleSubmissionChoice"){
-			      splitApp.toDetail("SampleSubmission");
-			}else if(oEv.getParameter("listItem").getId() == "PendingSamplesChoice"){
-				  splitApp.toDetail("PendingSamples");
-			}else if(oEv.getParameter("listItem").getId() == "RankingChoice"){
-				  splitApp.toDetail("Ranking");
-			}else if(oEv.getParameter("listItem").getId() == "Camera"){
-				  openCamera();
-			}
+					      splitApp.toDetail("IndexMap");
+				  } else if(oEv.getParameter("listItem").getId() == "ProfileChoice"){
+					      splitApp.toDetail("Profile");
+				  } else if(oEv.getParameter("listItem").getId() == "MapChoice"){
+					      splitApp.toDetail("IndexMap");
+				  } else if(oEv.getParameter("listItem").getId() == "ImagesChoice"){
+					      splitApp.toDetail("Images");
+				  } else if(oEv.getParameter("listItem").getId() == "SampleSubmissionChoice"){
+					      splitApp.toDetail("SampleSubmission");
+				  } else if(oEv.getParameter("listItem").getId() == "PendingSamplesChoice"){
+						  splitApp.toDetail("PendingSamples");
+				  } else if(oEv.getParameter("listItem").getId() == "RankingChoice"){
+						  splitApp.toDetail("Ranking");
+				  } else if(oEv.getParameter("listItem").getId() == "Camera"){
+						  openCamera();
+				  }
 		},
 		items : [ new sap.m.StandardListItem("SampleSubmissionChoice", {title: "Sample Submission"}), 
 		new sap.m.StandardListItem("ImagesChoice", {title: "Images"}), 
@@ -400,7 +402,7 @@ function displayAsImage(file){
 splitApp.addMasterPage(oMasterPage1);
 
 //add the detail pages to the splitapp control
-splitApp.addDetailPage(oDetailPage1).addDetailPage(oDetailPage2).addDetailPage(oDetailPage4).addDetailPage(oDetailPage5).addDetailPage(oDetailPage6).addDetailPage(oDetailPage7);
+splitApp.addDetailPage(oDetailPage0).addDetailPage(oDetailPage1).addDetailPage(oDetailPage2).addDetailPage(oDetailPage4).addDetailPage(oDetailPage5).addDetailPage(oDetailPage6).addDetailPage(oDetailPage7);
     
 splitApp.setDefaultTransitionNameDetail("fade");
 
